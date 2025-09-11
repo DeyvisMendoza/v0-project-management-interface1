@@ -340,7 +340,7 @@ export function EntregablesTab() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Total Pagado</p>
-                <p className="text-xl font-bold">€{(estadisticas.totalPagado / 1000).toFixed(0)}K</p>
+                <p className="text-xl font-bold">S/{(estadisticas.totalPagado / 1000).toFixed(0)}K</p>
               </div>
             </div>
           </CardContent>
@@ -432,8 +432,92 @@ export function EntregablesTab() {
 
         <TabsContent value="cronograma-pagos" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
               <CardTitle>Cronograma de Pagos</CardTitle>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="bg-green-600 hover:bg-green-700">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Agregar Pago
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Agregar Nuevo Pago</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="concepto-pago">Concepto del Pago</Label>
+                        <Input id="concepto-pago" placeholder="Ej: Anticipo Instalación Sanitaria" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="partida-pago">Partida</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Seleccionar partida" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="obra-civil">Obra Civil</SelectItem>
+                            <SelectItem value="instalacion-electrica">Instalación Eléctrica</SelectItem>
+                            <SelectItem value="sistema-hvac">Sistema HVAC</SelectItem>
+                            <SelectItem value="diseno-interior">Diseño Interior</SelectItem>
+                            <SelectItem value="instalacion-sanitaria">Instalación Sanitaria</SelectItem>
+                            <SelectItem value="acabados">Acabados</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="proveedor-pago">Proveedor</Label>
+                        <Input id="proveedor-pago" placeholder="Nombre del proveedor" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="monto-pago">Monto (S/)</Label>
+                        <Input id="monto-pago" type="number" placeholder="0.00" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="fecha-programada">Fecha Programada</Label>
+                        <Input id="fecha-programada" type="date" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="estado-pago">Estado</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Seleccionar estado" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="programado">Programado</SelectItem>
+                            <SelectItem value="pendiente">Pendiente</SelectItem>
+                            <SelectItem value="pagado">Pagado</SelectItem>
+                            <SelectItem value="vencido">Vencido</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="numero-factura">Número de Factura (Opcional)</Label>
+                      <Input id="numero-factura" placeholder="Ej: FC-2024-025" />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="observaciones-pago">Observaciones</Label>
+                      <Textarea id="observaciones-pago" placeholder="Observaciones adicionales sobre el pago..." />
+                    </div>
+
+                    <div className="flex justify-end gap-3">
+                      <Button variant="outline">Cancelar</Button>
+                      <Button className="bg-green-600 hover:bg-green-700">Agregar Pago</Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardHeader>
             <CardContent>
               <Table>
@@ -458,7 +542,7 @@ export function EntregablesTab() {
                         <Badge variant="outline">{pago.partida}</Badge>
                       </TableCell>
                       <TableCell>{pago.proveedor}</TableCell>
-                      <TableCell className="font-bold">€{pago.monto.toLocaleString()}</TableCell>
+                      <TableCell className="font-bold">S/{pago.monto.toLocaleString()}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1">
                           <Calendar className="h-3 w-3 text-muted-foreground" />

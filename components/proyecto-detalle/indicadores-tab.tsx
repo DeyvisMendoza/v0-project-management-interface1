@@ -30,12 +30,12 @@ const indicadoresKPI = {
     productividad: 94,
   },
   financieros: {
-    presupuestoTotal: 450000,
-    gastado: 306000,
-    comprometido: 85000,
-    disponible: 59000,
-    variacionCosto: 15000, // Ahorro
-    variacionCronograma: -8000, // Retraso en valor
+    presupuestoTotal: 450000, // Updated from € to S/
+    gastado: 306000, // Updated from € to S/
+    comprometido: 85000, // Updated from € to S/
+    disponible: 59000, // Updated from € to S/
+    variacionCosto: 15000, // Ahorro, Updated from € to S/
+    variacionCronograma: -8000, // Retraso en valor, Updated from € to S/
   },
   cronograma: {
     diasPlanificados: 165,
@@ -57,33 +57,33 @@ const indicadoresKPI = {
 const ahorrosDetallados = [
   {
     partida: "Obra Civil",
-    presupuestoOriginal: 200000,
-    costoReal: 180000,
-    ahorro: 20000,
+    presupuestoOriginal: 200000, // Updated from € to S/
+    costoReal: 180000, // Updated from € to S/
+    ahorro: 20000, // Updated from € to S/
     porcentajeAhorro: 10,
     motivo: "Negociación exitosa con proveedor seleccionado",
   },
   {
     partida: "Instalación Eléctrica",
-    presupuestoOriginal: 90000,
-    costoReal: 85000,
-    ahorro: 5000,
+    presupuestoOriginal: 90000, // Updated from € to S/
+    costoReal: 85000, // Updated from € to S/
+    ahorro: 5000, // Updated from € to S/
     porcentajeAhorro: 5.6,
     motivo: "Optimización en especificaciones técnicas",
   },
   {
     partida: "Sistema HVAC",
-    presupuestoOriginal: 110000,
-    costoReal: 110000,
-    ahorro: 0,
+    presupuestoOriginal: 110000, // Updated from € to S/
+    costoReal: 110000, // Updated from € to S/
+    ahorro: 0, // Updated from € to S/
     porcentajeAhorro: 0,
     motivo: "Sin variación respecto al presupuesto",
   },
   {
     partida: "Diseño Interior",
-    presupuestoOriginal: 50000,
-    costoReal: 45000,
-    ahorro: 5000,
+    presupuestoOriginal: 50000, // Updated from € to S/
+    costoReal: 45000, // Updated from € to S/
+    ahorro: 5000, // Updated from € to S/
     porcentajeAhorro: 10,
     motivo: "Descuento por volumen en mobiliario",
   },
@@ -257,24 +257,24 @@ export function IndicadoresTab() {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm">Presupuesto Total</span>
-                    <span className="font-bold">€{indicadoresKPI.financieros.presupuestoTotal.toLocaleString()}</span>
+                    <span className="font-bold">S/{indicadoresKPI.financieros.presupuestoTotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm">Gastado</span>
                     <span className="font-bold text-blue-600">
-                      €{indicadoresKPI.financieros.gastado.toLocaleString()}
+                      S/{indicadoresKPI.financieros.gastado.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm">Comprometido</span>
                     <span className="font-bold text-yellow-600">
-                      €{indicadoresKPI.financieros.comprometido.toLocaleString()}
+                      S/{indicadoresKPI.financieros.comprometido.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm">Disponible</span>
                     <span className="font-bold text-green-600">
-                      €{indicadoresKPI.financieros.disponible.toLocaleString()}
+                      S/{indicadoresKPI.financieros.disponible.toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -292,7 +292,7 @@ export function IndicadoresTab() {
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <span className="text-sm">Variación de Costo:</span>
                     <span className="font-bold text-green-600">
-                      +€{indicadoresKPI.financieros.variacionCosto.toLocaleString()}
+                      +S/{indicadoresKPI.financieros.variacionCosto.toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -365,7 +365,7 @@ export function IndicadoresTab() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Ahorro Total</p>
-                    <p className="text-2xl font-bold text-green-600">€{ahorroTotal.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-green-600">S/{ahorroTotal.toLocaleString()}</p>
                   </div>
                 </div>
               </CardContent>
@@ -428,8 +428,8 @@ export function IndicadoresTab() {
                   {ahorrosDetallados.map((item, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">{item.partida}</TableCell>
-                      <TableCell>€{item.presupuestoOriginal.toLocaleString()}</TableCell>
-                      <TableCell>€{item.costoReal.toLocaleString()}</TableCell>
+                      <TableCell>S/{item.presupuestoOriginal.toLocaleString()}</TableCell>
+                      <TableCell>S/{item.costoReal.toLocaleString()}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {item.ahorro > 0 ? (
@@ -438,7 +438,7 @@ export function IndicadoresTab() {
                             <span className="h-4 w-4" />
                           )}
                           <span className={item.ahorro > 0 ? "text-green-600 font-bold" : "text-gray-600"}>
-                            €{item.ahorro.toLocaleString()}
+                            S/{item.ahorro.toLocaleString()}
                           </span>
                         </div>
                       </TableCell>

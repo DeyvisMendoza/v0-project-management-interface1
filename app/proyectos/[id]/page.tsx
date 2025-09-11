@@ -13,6 +13,11 @@ import {
   DollarSign,
   TrendingUp,
   AlertTriangle,
+  BarChart3,
+  CreditCard,
+  TrendingDown,
+  FileText,
+  Download,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -20,6 +25,7 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import Link from "next/link"
 import { ResumenTab } from "@/components/proyecto-detalle/resumen-tab"
 import { PartidasTecnicasTab } from "@/components/proyecto-detalle/partidas-tecnicas-tab"
@@ -69,15 +75,237 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" asChild>
-          <Link href="/proyectos">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900">Detalles del Proyecto</h2>
-          <p className="text-muted-foreground">Gestión completa del proyecto y seguimiento de progreso</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/proyectos">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Button>
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900">Detalles del Proyecto</h2>
+            <p className="text-muted-foreground">Gestión completa del proyecto y seguimiento de progreso</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <FileText className="h-4 w-4 mr-2" />
+                Reporte Negociación
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Reporte de Negociación - Proformas</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6">
+                <div className="text-center p-8">
+                  <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium mb-2">Reporte de Negociación</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Análisis detallado de las negociaciones realizadas con proveedores
+                  </p>
+                  <Button className="bg-blue-600 hover:bg-blue-700">Generar Reporte</Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <TrendingDown className="h-4 w-4 mr-2" />
+                Cuadro Ahorros
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Cuadro de Ahorros del Proyecto</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card className="border-l-4 border-l-red-500">
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-red-600">
+                          €{(datosProyecto.presupuestoTotal * 1.15).toLocaleString()}
+                        </div>
+                        <div className="text-sm text-muted-foreground">Presupuesto Inicial Estimado</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-l-4 border-l-blue-500">
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-blue-600">
+                          €{datosProyecto.presupuestoTotal.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-muted-foreground">Presupuesto Final Negociado</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-l-4 border-l-green-500">
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-green-600">
+                          €{(datosProyecto.presupuestoTotal * 0.15).toLocaleString()}
+                        </div>
+                        <div className="text-sm text-muted-foreground">Ahorro Total (15%)</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="text-center">
+                  <Button className="bg-green-600 hover:bg-green-700">
+                    <Download className="h-4 w-4 mr-2" />
+                    Descargar Reporte de Ahorros
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <CreditCard className="h-4 w-4 mr-2" />
+                Cuadro Pagos
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Cuadro de Pagos del Proyecto</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <div className="text-lg font-semibold">Cronograma de Pagos</div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center p-3 border rounded-lg">
+                          <div>
+                            <div className="font-medium">Anticipo (30%)</div>
+                            <div className="text-sm text-muted-foreground">Al firmar contrato</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold">€{(datosProyecto.presupuestoTotal * 0.3).toLocaleString()}</div>
+                            <Badge className="bg-green-100 text-green-800">Pagado</Badge>
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center p-3 border rounded-lg">
+                          <div>
+                            <div className="font-medium">Avance 50% (40%)</div>
+                            <div className="text-sm text-muted-foreground">Al 50% de avance físico</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold">€{(datosProyecto.presupuestoTotal * 0.4).toLocaleString()}</div>
+                            <Badge className="bg-blue-100 text-blue-800">Pendiente</Badge>
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center p-3 border rounded-lg">
+                          <div>
+                            <div className="font-medium">Entrega Final (30%)</div>
+                            <div className="text-sm text-muted-foreground">Al completar proyecto</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold">€{(datosProyecto.presupuestoTotal * 0.3).toLocaleString()}</div>
+                            <Badge className="bg-gray-100 text-gray-800">Programado</Badge>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="text-center">
+                  <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Download className="h-4 w-4 mr-2" />
+                    Descargar Cronograma de Pagos
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Cuadro Avances
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Cuadro de Avances del Proyecto</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card>
+                    <CardHeader>
+                      <div className="text-lg font-semibold">Avance Físico</div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <div className="text-4xl font-bold text-blue-600 mb-2">{datosProyecto.progresoFisico}%</div>
+                          <Progress value={datosProyecto.progresoFisico} className="h-3" />
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span>Obra Civil:</span>
+                            <span className="font-medium">85%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Instalaciones:</span>
+                            <span className="font-medium">45%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Acabados:</span>
+                            <span className="font-medium">20%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader>
+                      <div className="text-lg font-semibold">Avance Financiero</div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <div className="text-4xl font-bold text-green-600 mb-2">
+                            {datosProyecto.progresoFinanciero}%
+                          </div>
+                          <Progress value={datosProyecto.progresoFinanciero} className="h-3" />
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span>Gastado:</span>
+                            <span className="font-medium">€{datosProyecto.montoGastado.toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Restante:</span>
+                            <span className="font-medium">
+                              €{(datosProyecto.presupuestoTotal - datosProyecto.montoGastado).toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="text-center">
+                  <Button className="bg-purple-600 hover:bg-purple-700">
+                    <Download className="h-4 w-4 mr-2" />
+                    Descargar Reporte de Avances
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
